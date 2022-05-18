@@ -1,7 +1,8 @@
 {
-  "name": "prisma-test",
+  "name": "prisma-relational-seeding-example",
   "version": "1.0.0",
   "scripts": {
+    "deploy": "git add . && git commit -m Build && git push",
     "seed": "prisma db push && node prisma/seed/index.js"
   },
   "author": "Jordan McRae",
