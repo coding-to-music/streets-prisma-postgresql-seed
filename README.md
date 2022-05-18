@@ -30,6 +30,30 @@ git push -u origin main
 # vercel --prod --confirm
 ```
 
+## Install Postgresql on Debian and Ubuntu
+
+You can either choose to use the version of PostgreSQL available in your distribution's default repositories or use repositories provided by the PostgreSQL project. Packages in the default repository are tested to work with all other software provided for your distribution, but may be older. Packages from the PostgreSQL project will be more up-to-date but may require extra configuration.
+
+[Install using Debian or Ubuntu's default repositories](https://www.prisma.io/dataguide/postgresql/setting-up-a-local-postgresql-database#install-using-debian-or-ubuntus-default-repositories)
+[Install using the PostgreSQL project's Debian and Ubuntu repositories](https://www.prisma.io/dataguide/postgresql/setting-up-a-local-postgresql-database#install-using-the-postgresql-projects-debian-and-ubuntu-repositories)
+
+## Install using Debian or Ubuntu's default repositories
+
+Both Ubuntu and Debian provide versions of PostgreSQL server as packages within their default repositories. The PostgreSQL version may be older than those found on the PostgreSQL website, but this is the simplest way to install on these distributions.
+
+To install PostgreSQL server, update your computer's local package cache with the latest set of packages. Afterwards, install the postgresql package:
+
+sudo apt update
+sudo apt install postgresql
+By default, PostgreSQL is configured to use peer authentication, which allows users to log in if their operating system user name matches a PostgreSQL internal name.
+
+The installation process created an operating system user called postgres to match the postgres database administrative account. To log into PostgreSQL with the psql client, use sudo to run the command as the postgres user:
+
+sudo -u postgres psql
+When you are finished, you can exit the psql session by typing:
+
+\quit
+
 # Getting started
 
 This is a sample of how you can easily seed relational data using [Prisma](https://www.prisma.io/). This assumes that you've got a PostgreSQL database created and have some working knowledge of Prisma. If you are using a different SQL database other than PostgreSQL, see below for further instructions.
