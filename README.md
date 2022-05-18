@@ -35,6 +35,7 @@ git push -u origin main
 You can either choose to use the version of PostgreSQL available in your distribution's default repositories or use repositories provided by the PostgreSQL project. Packages in the default repository are tested to work with all other software provided for your distribution, but may be older. Packages from the PostgreSQL project will be more up-to-date but may require extra configuration.
 
 [Install using Debian or Ubuntu's default repositories](https://www.prisma.io/dataguide/postgresql/setting-up-a-local-postgresql-database#install-using-debian-or-ubuntus-default-repositories)
+
 [Install using the PostgreSQL project's Debian and Ubuntu repositories](https://www.prisma.io/dataguide/postgresql/setting-up-a-local-postgresql-database#install-using-the-postgresql-projects-debian-and-ubuntu-repositories)
 
 ## Install using Debian or Ubuntu's default repositories
@@ -43,16 +44,24 @@ Both Ubuntu and Debian provide versions of PostgreSQL server as packages within 
 
 To install PostgreSQL server, update your computer's local package cache with the latest set of packages. Afterwards, install the postgresql package:
 
+```java
 sudo apt update
 sudo apt install postgresql
+```
+
 By default, PostgreSQL is configured to use peer authentication, which allows users to log in if their operating system user name matches a PostgreSQL internal name.
 
 The installation process created an operating system user called postgres to match the postgres database administrative account. To log into PostgreSQL with the psql client, use sudo to run the command as the postgres user:
 
+```java
 sudo -u postgres psql
+```
+
 When you are finished, you can exit the psql session by typing:
 
+```java
 \quit
+```
 
 # Getting started
 
