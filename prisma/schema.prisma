@@ -12,8 +12,8 @@ model Street {
   name              String?
   from              String?
   to                String?
-  width             Int?
-  length            Int?
+  width             String?
+  length            String?
   date              String?
   noncity           String?
   unnacceptedlength String?

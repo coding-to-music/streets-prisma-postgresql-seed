@@ -2,31 +2,43 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-const Users = require("./data/users");
-const Posts = require("./data/posts");
+// const Users = require("./data/users");
+// const Posts = require("./data/posts");
+const Streets = require("./data/streets");
 
 async function runSeeders() {
-  // Users
+  // Streets
   await Promise.all(
-    Users.map(async (user) =>
-      prisma.user.upsert({
-        where: { id: user.id },
+    Streets.map(async (street) =>
+      prisma.street.upsert({
+        where: { id: street.id },
         update: {},
-        create: user,
+        create: street,
       })
     )
   );
 
+  // Users
+  // await Promise.all(
+  //   Users.map(async (user) =>
+  //     prisma.user.upsert({
+  //       where: { id: user.id },
+  //       update: {},
+  //       create: user,
+  //     })
+  //   )
+  // );
+
   // Posts
-  await Promise.all(
-    Posts.map(async (post) =>
-      prisma.post.upsert({
-        where: { id: post.id },
-        update: {},
-        create: post,
-      })
-    )
-  );
+  // await Promise.all(
+  //   Posts.map(async (post) =>
+  //     prisma.post.upsert({
+  //       where: { id: post.id },
+  //       update: {},
+  //       create: post,
+  //     })
+  //   )
+  // );
 }
 
 runSeeders()
