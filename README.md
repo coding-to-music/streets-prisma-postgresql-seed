@@ -147,6 +147,87 @@ This command does two things:
 - creates a new directory called prisma that contains a file called schema.prisma, which contains the Prisma schema with your database connection variable and schema models
 - creates the .env file in the root directory of the project, which is used for defining environment variables (such as your database connection)
 
+# Using Prisma Migrate
+
+## Creating the database schema
+
+In this guide, you'll use Prisma Migrate to create the tables in your database. Add the following Prisma data model to your Prisma schema in prisma/schema.prisma:
+
+```java
+//prisma/schema.prisma
+model Post {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String   @db.VarChar(255)
+  content   String?
+  published Boolean  @default(false)
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+}
+
+model Profile {
+  id     Int     @id @default(autoincrement())
+  bio    String?
+  user   User    @relation(fields: [userId], references: [id])
+  userId Int     @unique
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  name    String?
+  posts   Post[]
+  profile Profile?
+}
+```
+
+To map your data model to the database schema, you need to use the prisma migrate CLI commands:
+
+```java
+npx prisma migrate dev --name init
+```
+
+This command does two things:
+
+- It creates a new SQL migration file for this migration
+- It runs the SQL migration file against the database
+- Note: generate is called under the hood by default, after running prisma migrate dev. If the prisma-client-js generator is defined in your schema, this will check if @prisma/client is installed and install it if it's missing.
+
+Great, you now created three tables in your database with Prisma Migrate 🚀
+
+```java
+CREATE TABLE "Post" (
+  "id" SERIAL,
+  "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP(3) NOT NULL,
+  "title" VARCHAR(255) NOT NULL,
+  "content" TEXT,
+  "published" BOOLEAN NOT NULL DEFAULT false,
+  "authorId" INTEGER NOT NULL,
+  PRIMARY KEY ("id")
+);
+
+CREATE TABLE "Profile" (
+  "id" SERIAL,
+  "bio" TEXT,
+  "userId" INTEGER NOT NULL,
+  PRIMARY KEY ("id")
+);
+
+CREATE TABLE "User" (
+  "id" SERIAL,
+  "email" TEXT NOT NULL,
+  "name" TEXT,
+  PRIMARY KEY ("id")
+);
+
+CREATE UNIQUE INDEX "Profile.userId_unique" ON "Profile"("userId");
+CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");
+ALTER TABLE "Post" ADD FOREIGN KEY("authorId")REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Profile" ADD FOREIGN KEY("userId")REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+```
+
 ## Install Prisma Client
 
 https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project/relational-databases/install-prisma-client-typescript-postgres
@@ -185,7 +266,7 @@ const prisma = new PrismaClient()
 
 This command reads your Prisma schema and generates your Prisma Client library
 
-## Querying the database
+# Querying the database
 
 ## Write your first query with Prisma Client
 
@@ -242,6 +323,15 @@ Now run the code with your current TypeScript setup. If you're using ts-node, yo
 
 ```java
 npx ts-node index.ts
+```
+
+Output
+
+```java
+Need to install the following packages:
+  ts-node
+Ok to proceed? (y) y
+[]
 ```
 
 This will print an array of User records as plain old JavaScript objects.
@@ -305,6 +395,16 @@ Run the code with your current TypeScript setup. If you're using ts-node, you ca
 
 ```java
 npx ts-node index.ts
+```
+
+# Explore the data in Prisma Studio
+
+Prisma Studio is a visual editor for the data in your database. You can run it with two ways:
+
+Run `npx prisma studio` in your terminal.
+
+```java
+npx prisma studio
 ```
 
 # Getting started
