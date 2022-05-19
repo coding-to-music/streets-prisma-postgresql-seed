@@ -28,6 +28,87 @@ git remote add origin git@github.com:coding-to-music/streets-prisma-postgresql-s
 git push -u origin main
 ```
 
+```java
+npx prisma db pull
+```
+
+Prisma schema loaded from prisma/schema.prisma
+Environment variables loaded from .env
+Datasource "db": PostgreSQL database "prisma-postgresql-seeding-example", schema "public" at "localhost:5432"
+
+✖ Introspecting based on datasource defined in prisma/schema.prisma
+
+Error: P1012 Introspection failed as your current Prisma schema file is invalid
+
+Please fix your current schema manually, use prisma validate to confirm it is valid and then run this command again.
+Or run this command with the --force flag to ignore your current schema and overwrite it. All local modifications will be lost.
+
+```java
+npx prisma db pull --force
+```
+
+Output
+
+```java
+Prisma schema loaded from prisma/schema.prisma
+Environment variables loaded from .env
+Datasource "db": PostgreSQL database "prisma-postgresql-seeding-example", schema "public" at "localhost:5432"
+
+✔ Introspected 3 models and wrote them into prisma/schema.prisma in 239ms
+
+Run prisma generate to generate Prisma Client.
+```
+
+```java
+npx prisma generate
+```
+
+Output
+
+````java
+Environment variables loaded from .env
+Prisma schema loaded from prisma/schema.prisma
+
+✔ Generated Prisma Client (3.14.0 | library) to ./node_modules/@prisma/client in 278ms
+You can now start using Prisma Client in your code. Reference: https://pris.ly/d/client
+
+```java
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
+````
+
+```java
+npx prisma migrate dev --name init
+```
+
+Output
+
+```java
+Environment variables loaded from .env
+Prisma schema loaded from prisma/schema.prisma
+Datasource "db": PostgreSQL database "prisma-postgresql-seeding-example", schema "public" at "localhost:5432"
+
+Applying migration `20220519084519_init`
+
+The following migration(s) have been created and applied from new schema changes:
+
+migrations/
+  └─ 20220519084519_init/
+    └─ migration.sql
+
+Your database is now in sync with your schema.
+
+✔ Generated Prisma Client (3.14.0 | library) to ./node_modules/@prisma/client in 220ms
+```
+
+Prisma Studio is a visual editor for the data in your database. You can run it with two ways:
+
+Run `npx prisma studio` in your terminal.
+
+```java
+npx prisma studio
+```
+
 ## Install Postgresql on Debian and Ubuntu
 
 You can either choose to use the version of PostgreSQL available in your distribution's default repositories or use repositories provided by the PostgreSQL project. Packages in the default repository are tested to work with all other software provided for your distribution, but may be older. Packages from the PostgreSQL project will be more up-to-date but may require extra configuration.
