@@ -177,12 +177,135 @@ Prisma schema loaded from prisma/schema.prisma
 You can now start using Prisma Client in your code. Reference: https://pris.ly/d/client
 ```
 
+```java
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
-````
+```
 
 This command reads your Prisma schema and generates your Prisma Client library
+
+## Querying the database
+
+## Write your first query with Prisma Client
+
+Now that you have generated the Prisma Client, you can start writing queries to read and write data in your database.
+
+If you're building a REST API, you can use Prisma Client in your route handlers to read and write data in the database based on incoming HTTP requests. If you're building a GraphQL API, you can use Prisma Client in your resolvers to read and write data in the database based on incoming queries and mutations.
+
+For the purpose of this guide however, you'll just create a plain Node.js script to learn how to send queries to your database using Prisma Client. Once you have an understanding of how the API works, you can start integrating it into your actual application code (e.g. REST route handlers or GraphQL resolvers).
+
+Create a new file named index.ts and add the following code to it:
+
+```java
+//index.ts
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
+async function main() {
+  // ... you will write your Prisma Client queries here
+}
+
+main()
+  .catch((e) => {
+    throw e
+  })
+  .finally(async () => {
+    await prisma.$disconnect()
+  })
+```
+
+Here's a quick overview of the different parts of the code snippet:
+
+- Import the PrismaClient constructor from the @prisma/client node module
+- Instantiate PrismaClient
+- Define an async function named main to send queries to the database
+- Call the main function
+- Close the database connections when the script terminates
+
+Depending on what your models look like, the Prisma Client API will look different as well. For example, if you have a User model, your PrismaClient instance exposes a property called user on which you can call CRUD methods like findMany, create or update. The property is named after the model, but the first letter is lowercased (so for the Post model it's called post, for Profile it's called profile).
+
+The following examples are all based on the models in the Prisma schema.
+
+Inside the main function, add the following query to read all User records from the database and print the result:
+
+```java
+// index.ts
+async function main() {
+  const allUsers = await prisma.user.findMany()
+  console.log(allUsers)
+}
+```
+
+Now run the code with your current TypeScript setup. If you're using ts-node, you can run it like this:
+
+```java
+npx ts-node index.ts
+```
+
+This will print an array of User records as plain old JavaScript objects.
+
+## Write data into the database
+
+The findMany query you used in the previous section only reads data from the database. In this section, you'll learn how to write a query to write new records into the Post and User tables.
+
+Adjust the main function to send a create query to the database:
+
+```java
+//index.ts
+async function main() {
+  await prisma.user.create({
+    data: {
+      name: 'Alice',
+      email: 'alice@prisma.io',
+      posts: {
+        create: { title: 'Hello World' },
+      },
+      profile: {
+        create: { bio: 'I like turtles' },
+      },
+    },
+  })
+
+  const allUsers = await prisma.user.findMany({
+    include: {
+      posts: true,
+      profile: true,
+    },
+  })
+  console.dir(allUsers, { depth: null })
+}
+```
+
+This code creates a new User record together with new Post and Profile records using a nested write query. The User record is connected to the two other ones via the Post.author ↔ User.posts and Profile.user ↔ User.profile relation fields respectively.
+
+Notice that you're passing the include option to findMany which tells Prisma Client to include the posts and profile relations on the returned User objects.
+
+Run the code with your current TypeScript setup. If you're using ts-node, you can run it like this:
+
+```java
+npx ts-node index.ts
+```
+
+Before moving on to the next section, you'll "publish" the Post record you just created using an update query. Adjust the main function as follows:
+
+```java
+//index.ts
+async function main() {
+  const post = await prisma.post.update({
+    where: { id: 1 },
+    data: { published: true },
+  })
+  console.log(post)
+}
+```
+
+Run the code with your current TypeScript setup. If you're using ts-node, you can run it like this:
+
+```java
+npx ts-node index.ts
+```
 
 # Getting started
 
@@ -206,7 +329,7 @@ If you are using a different database other than PostgreSQL, modify the provider
 
 ```java
 npm run seed
-````
+```
 
 ## Viewing your seed data
 
