@@ -18,6 +18,7 @@ model Street {
   noncity           String?
   unnacceptedlength String?
 
+  @@map(name: "street")
 }
 
 model Post {

@@ -1,7 +1,6 @@
 module.exports = [
   // Street 1
   {
-    id: 1,
     name: "ABERDEEN AVE",
     from: "MT AUBURN",
     to: "HURON AVE",
@@ -13,7 +12,6 @@ module.exports = [
 
   // Street 2
   {
-    id: 2,
     name: "ABERDEEN CT",
     from: "ABERDEEN",
     to: "EASTERLY",
@@ -23,6 +21,8 @@ module.exports = [
   },
 ];
 
+// id: 1,
+// id: 2,
 // name              String?
 // from              String?
 // to                String?

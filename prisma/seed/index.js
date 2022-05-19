@@ -13,39 +13,61 @@ const Streets = require("./data/streets");
 // computed total-area
 
 async function runSeeders() {
-  // Streets
-  await Promise.all(
-    Streets.map(async (street) =>
-      prisma.street.upsert({
-        where: { id: street.id },
-        update: {},
-        create: street,
-      })
-    )
-  );
-
-  // Users
-  // await Promise.all(
-  //   Users.map(async (user) =>
-  //     prisma.user.upsert({
-  //       where: { id: user.id },
-  //       update: {},
-  //       create: user,
-  //     })
-  //   )
-  // );
-
-  // Posts
-  // await Promise.all(
-  //   Posts.map(async (post) =>
-  //     prisma.post.upsert({
-  //       where: { id: post.id },
-  //       update: {},
-  //       create: post,
-  //     })
-  //   )
-  // );
+  console.log(`Start seeding ...`);
+  for (const s of Streets) {
+    const street = await prisma.street.create({
+      data: s,
+    });
+    console.log(`Created street with id: ${street.id} ${street.name}`);
+  }
+  console.log(`Seeding finished.`);
 }
+
+// async function main() {
+//   console.log(`Start seeding ...`)
+//   for (const u of userData) {
+//     const user = await prisma.user.create({
+//       data: u,
+//     })
+//     console.log(`Created user with id: ${user.id}`)
+//   }
+//   console.log(`Seeding finished.`)
+// }
+
+// async function runSeeders() {
+//   // Streets
+//   await Promise.all(
+//     Streets.map(async (street) =>
+//       prisma.street.upsert({
+//         where: { id: street.id },
+//         update: {},
+//         create: street,
+//       })
+//     )
+//   );
+
+// Users
+// await Promise.all(
+//   Users.map(async (user) =>
+//     prisma.user.upsert({
+//       where: { id: user.id },
+//       update: {},
+//       create: user,
+//     })
+//   )
+// );
+
+// Posts
+// await Promise.all(
+//   Posts.map(async (post) =>
+//     prisma.post.upsert({
+//       where: { id: post.id },
+//       update: {},
+//       create: post,
+//     })
+//   )
+// );
+// }
 
 runSeeders()
   .catch((e) => {
