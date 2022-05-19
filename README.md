@@ -1,14 +1,14 @@
-# prisma-postgresql-seeding-example
+# streets-prisma-postgresql-seed
 
 # 🚀 Javascript full-stack 🚀
 
-https://github.com/coding-to-music/prisma-postgresql-seeding-example
+https://github.com/coding-to-music/streets-prisma-postgresql-seed
 
 By Jordan McRae https://github.com/jordan-mcrae
 
 https://stackfive.io/blog/seeding-relational-data-with-prisma
 
-https://github.com/jordan-mcrae/prisma-postgresql-seeding-example
+https://github.com/jordan-mcrae/streets-prisma-postgresql-seed
 
 ## Environment Values
 
@@ -24,7 +24,7 @@ git add .
 git remote remove origin
 git commit -m "first commit"
 git branch -M main
-git remote add origin git@github.com:coding-to-music/prisma-postgresql-seeding-example.git
+git remote add origin git@github.com:coding-to-music/streets-prisma-postgresql-seed.git
 git push -u origin main
 ```
 
