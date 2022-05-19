@@ -6,6 +6,12 @@ const prisma = new PrismaClient();
 // const Posts = require("./data/posts");
 const Streets = require("./data/streets");
 
+// auto-generate the int id
+// length and width to int
+// computed total-length
+// computed total-width
+// computed total-area
+
 async function runSeeders() {
   // Streets
   await Promise.all(
