@@ -13,6 +13,9 @@ const Streets = require("./data/streets");
 // computed total-area
 
 async function runSeeders() {
+  console.log(`Deleting existing records ...`);
+  const deleteUsers = await prisma.street.deleteMany({});
+
   console.log(`Start seeding ...`);
   for (const s of Streets) {
     const street = await prisma.street.create({
