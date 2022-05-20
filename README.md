@@ -28,6 +28,55 @@ git remote add origin git@github.com:coding-to-music/streets-prisma-postgresql-s
 git push -u origin main
 ```
 
+# ◭ Prisma is a modern DB toolkit to query, migrate and model your database (https://prisma.io)
+
+```java
+npx prisma
+```
+
+Output
+
+```java
+◭  Prisma is a modern DB toolkit to query, migrate and model your database (https://prisma.io)
+
+Usage
+
+  $ prisma [command]
+
+Commands
+
+            init   Set up Prisma for your app
+        generate   Generate artifacts (e.g. Prisma Client)
+              db   Manage your database schema and lifecycle
+         migrate   Migrate your database
+          studio   Browse your data with Prisma Studio
+          format   Format your schema
+
+Flags
+
+     --preview-feature   Run Preview Prisma commands
+
+Examples
+
+  Set up a new Prisma project
+  $ prisma init
+
+  Generate artifacts (e.g. Prisma Client)
+  $ prisma generate
+
+  Browse your data
+  $ prisma studio
+
+  Create migrations from your Prisma schema, apply them to the database, generate artifacts (e.g. Prisma Client)
+  $ prisma migrate dev
+
+  Pull the schema from an existing database, updating the Prisma schema
+  $ prisma db pull
+
+  Push the Prisma schema state to the database
+  $ prisma db push
+```
+
 ```java
 npx prisma db pull
 ```
