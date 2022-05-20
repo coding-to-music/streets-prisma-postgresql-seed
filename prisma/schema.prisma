@@ -17,6 +17,7 @@ model Street {
   date              String?
   noncity           String?
   unnacceptedlength String?
+  area              Int?    @default(0)
 
   @@map(name: "street")
 }

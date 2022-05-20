@@ -18,10 +18,20 @@ async function runSeeders() {
     const street = await prisma.street.create({
       data: s,
     });
-    console.log(`Created street with id: ${street.id} ${street.name}`);
+    // console.log(`Created street with id: ${street.id} ${street.name}`);
   }
   console.log(`Seeding finished.`);
 }
+
+runSeeders()
+  .catch((e) => {
+    console.error(`There was an error while seeding: ${e}`);
+    process.exit(1);
+  })
+  .finally(async () => {
+    console.log("Successfully seeded database. Closing connection.");
+    await prisma.$disconnect();
+  });
 
 // async function main() {
 //   console.log(`Start seeding ...`)
@@ -68,13 +78,3 @@ async function runSeeders() {
 //   )
 // );
 // }
-
-runSeeders()
-  .catch((e) => {
-    console.error(`There was an error while seeding: ${e}`);
-    process.exit(1);
-  })
-  .finally(async () => {
-    console.log("Successfully seeded database. Closing connection.");
-    await prisma.$disconnect();
-  });
