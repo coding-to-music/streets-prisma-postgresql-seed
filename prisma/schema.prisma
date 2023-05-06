@@ -65,4 +65,5 @@ model EvLocations {
   Latitude                Float
   Longitude               Float
   Facility_Type           String?
+  @@map(name: "ev_locations")
 }

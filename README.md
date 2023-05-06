@@ -183,7 +183,68 @@ The installation process created an operating system user called postgres to mat
 
 ```java
 sudo -u postgres psql
+
+or
+
+psql -h localhost -p 5432 -U postgres
 ```
+
+Once you are connected to your database, run the following command to list all tables in the current schema:
+
+```java
+\dt
+```
+
+This should display a list of all tables in the current schema, including the tables you have created.
+
+If you want to see more information about a specific table, you can use the \d command followed by the name of the table. For example, if you want to see the details of the ev_locations table, you can run:
+
+```java
+\d ev_locations
+```
+
+To determine the name of the database and schema that you are currently connected to in psql, you can use the \conninfo command.
+
+Simply open psql and run the following command:
+
+```java
+\conninfo
+```
+
+This should display information about the columns, constraints, and indexes defined on the ev_locations table.
+
+```java
+You are connected to database "mydatabase" as user "myuser" via socket in "/var/run/postgresql" at port "5432".
+```
+
+You can check the current database and schema in psql by running the following command:
+
+```java
+SELECT current_database(), current_schema();
+```
+
+To list the different databases in PostgreSQL, you can use the following command in the psql command-line interface:
+
+```java
+\list
+```
+
+If you've inserted rows into your database outside of Prisma, then Prisma's knowledge of the number of rows in the affected table(s) may be out of date. To update Prisma's knowledge of the row count, you can use the prisma.db.$queryRaw() method to execute a SQL query that retrieves the row count for the table.
+
+Here's an example of how to update Prisma's knowledge of the row count for the ev_locations table:
+
+```java
+const rowCount = await prisma.db.$queryRaw(
+  'SELECT COUNT(*) FROM ev_locations'
+);
+prisma.ev_locations.count = rowCount[0].count;
+```
+
+In this example, the prisma.db.$queryRaw() method is used to execute a SQL query that returns the row count for the ev_locations table. The result is an array with a single object that has a count property. This property contains the row count for the table.
+
+The count property is then assigned to the count property of the ev_locations Prisma client, which updates Prisma's knowledge of the row count for the table.
+
+You can use similar code to update the row count for any other tables that you've modified outside of Prisma.
 
 When you are finished, you can exit the psql session by typing:
 
