@@ -8,7 +8,7 @@ By Jordan McRae https://github.com/jordan-mcrae
 
 https://stackfive.io/blog/seeding-relational-data-with-prisma
 
-https://github.com/jordan-mcrae/streets-prisma-postgresql-seed
+https://github.com/jordan-mcrae/prisma-relational-seeding-example
 
 ## Environment Values
 
