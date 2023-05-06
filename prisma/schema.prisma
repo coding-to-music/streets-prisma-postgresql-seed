@@ -49,3 +49,20 @@ model User {
   Post    Post[]
   Profile Profile?
 }
+
+model EvLocations {
+  id      Int      @id @default(autoincrement())
+  Fuel_Type_Code          String
+  Station_Name            String
+  Street_Address          String
+  City                    String
+  State                   String
+  ZIP                     String
+  Plus4                   String?
+  Status_Code             String
+  Groups_With_Access_Code String?
+  Access_Days_Time        String?
+  Latitude                Float
+  Longitude               Float
+  Facility_Type           String?
+}
