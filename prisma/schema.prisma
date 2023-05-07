@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Street {
-  id                Int       @id @default(autoincrement())
+  id                Int      @id @default(autoincrement())
   name              String?
   from              String?
   to                String?
@@ -17,11 +17,11 @@ model Street {
   date              String?
   noncity           String?
   unnacceptedlength String?
-  area              Int?      @default(0)
-  createdAt         DateTime  @default(now()) @map(name: "created_at")
-  updatedAt         DateTime  @default(now()) @map(name: "updated_at")
+  area              Int?     @default(0)
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @default(now()) @map("updated_at")
 
-  @@map(name: "street")
+  @@map("street")
 }
 
 model Post {
@@ -51,19 +51,20 @@ model User {
 }
 
 model EvLocations {
-  id      Int      @id @default(autoincrement())
-  Fuel_Type_Code          String
-  Station_Name            String
-  Street_Address          String
-  City                    String
-  State                   String
-  ZIP                     String
-  Plus4                   String?
-  Status_Code             String
-  Groups_With_Access_Code String?
-  Access_Days_Time        String?
-  Latitude                Float
-  Longitude               Float
-  Facility_Type           String?
-  @@map(name: "ev_locations")
+  id                      Int      @id @default(autoincrement())
+  fuel_type_code          String?  @db.VarChar(100)
+  station_name            String?  @db.VarChar(255)
+  street_address          String?  @db.VarChar(255)
+  city                    String?  @db.VarChar(100)
+  state                   String?  @db.VarChar(100)
+  zip                     String?  @db.VarChar(20)
+  plus4                   String?  @db.VarChar(20)
+  status_code             String?  @db.VarChar(20)
+  groups_with_access_code String?  @db.VarChar(255)
+  access_days_time        String?  @db.VarChar(255)
+  latitude                Decimal? @db.Decimal(20, 10)
+  longitude               Decimal? @db.Decimal(20, 10)
+  facility_type           String?  @db.VarChar(100)
+
+  @@map("ev_locations")
 }

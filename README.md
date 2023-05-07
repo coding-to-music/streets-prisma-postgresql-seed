@@ -77,6 +77,31 @@ Examples
   $ prisma db push
 ```
 
+## Have prisma read the table in the database and generate it's own model
+
+To have Prisma read an existing table in the database and generate its own model, you can use the Prisma CLI's introspect command. This command inspects your database schema and generates a Prisma schema based on it.
+
+Here are the steps you can follow:
+
+Install Prisma CLI by running 
+
+```java
+npm install -g prisma
+```
+
+Create a new Prisma schema file if you haven't already. You can do this by running prisma init in your project directory and selecting a database provider (in your case, Postgres).
+
+In your terminal, run prisma introspect followed by the connection URL to your database, for example:
+
+```java
+prisma introspect postgres://username:password@host:port/database
+```
+
+This will introspect your Postgres database and generate a Prisma schema file based on the existing tables and columns.
+
+After running the prisma introspect command, you should see a new schema.prisma file in your project directory. This file will contain the models and fields that Prisma has generated based on the existing database schema.
+Note that Prisma's generated schema may not perfectly match your existing database schema, so you may need to make adjustments to it. For example, you may need to add or remove fields, or specify custom mappings for specific fields. Once you have made the necessary changes, you can run prisma generate to generate the Prisma client based on your updated schema.
+
 ```java
 npx prisma db pull
 ```
