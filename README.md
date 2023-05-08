@@ -108,6 +108,7 @@ Note that Prisma's generated schema may not perfectly match your existing databa
 npx prisma db pull
 ```
 
+```java
 Prisma schema loaded from prisma/schema.prisma
 Environment variables loaded from .env
 Datasource "db": PostgreSQL database "prisma-postgresql-seeding-example", schema "public" at "localhost:5432"
@@ -118,6 +119,9 @@ Error: P1012 Introspection failed as your current Prisma schema file is invalid
 
 Please fix your current schema manually, use prisma validate to confirm it is valid and then run this command again.
 Or run this command with the --force flag to ignore your current schema and overwrite it. All local modifications will be lost.
+```
+
+Fix via force
 
 ```java
 npx prisma db pull --force
